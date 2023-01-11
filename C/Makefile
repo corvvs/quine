@@ -2,9 +2,25 @@ CFLAGS	:= -Wall -Werror -Wextra
 CC		:= 	gcc
 
 Colleen:	Colleen.o
-	gcc ${CFLAGS} $^ -o Colleen
+	gcc ${CFLAGS} $^ -o $@
 
+.PHONY: testColleen
 testColleen:	Colleen
 	./$^ > $^.out
-	cat $^.c
+	@echo =====================================================================
+	@cat $^.c
+	@echo
+	@echo =====================================================================
 	diff $^.c $^.out
+
+Grace:		Grace.o
+	gcc ${CFLAGS} $^ -o $@
+
+.PHONY: testGrace
+testGrace:	Grace
+	./$^
+	@echo =====================================================================
+	@cat Grace.c
+	@echo
+	@echo =====================================================================
+	diff Grace.c Grace_kid.c
