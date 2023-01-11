@@ -24,3 +24,22 @@ testGrace:	Grace
 	@echo
 	@echo =====================================================================
 	diff Grace.c Grace_kid.c
+
+Sully:		Sully.o
+	${CC} ${CFLAGS} $^ -o $@
+
+.PHONY: testSully
+testGSully:	Sully
+	@echo =====================================================================
+	@cat Sully.c
+	@echo
+	@echo =====================================================================
+	./$^
+	ls -l Sully*.*
+	diff Sully.c Sully_0.c
+
+.PHONY: wikipedia
+wikipedia:
+	${CC} ${CFLAGS} $@.c -o $@
+	./$@
+	diff $@.c $@_kid.c
