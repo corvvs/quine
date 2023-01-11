@@ -2,7 +2,7 @@ CFLAGS	:= -Wall -Werror -Wextra
 CC		:= 	gcc
 
 Colleen:	Colleen.o
-	gcc ${CFLAGS} $^ -o $@
+	${CC} ${CFLAGS} $^ -o $@
 
 .PHONY: testColleen
 testColleen:	Colleen
@@ -14,7 +14,7 @@ testColleen:	Colleen
 	diff $^.c $^.out
 
 Grace:		Grace.o
-	gcc ${CFLAGS} $^ -o $@
+	${CC} ${CFLAGS} $^ -o $@
 
 .PHONY: testGrace
 testGrace:	Grace
