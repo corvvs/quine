@@ -29,17 +29,21 @@ Sully:		Sully.o
 	${CC} ${CFLAGS} $^ -o $@
 
 .PHONY: testSully
-testGSully:	Sully
+testSully:	Sully
 	@echo =====================================================================
 	@cat Sully.c
 	@echo
 	@echo =====================================================================
 	./$^
-	ls -l Sully*.*
-	diff Sully.c Sully_0.c
+	ls -l Sully*
+	!(diff Sully.c Sully_4.c || diff Sully_4.c Sully_3.c || diff Sully_3.c Sully_2.c || diff Sully_2.c Sully_1.c || diff Sully_1.c Sully_0.c)
 
 .PHONY: wikipedia
 wikipedia:
 	${CC} ${CFLAGS} $@.c -o $@
 	./$@
 	diff $@.c $@_kid.c
+
+.PHONY: clean
+clean:
+	rm -rf Sully Sully_*
