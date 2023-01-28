@@ -3,9 +3,6 @@ ASFLAGS	:=	-f macho64 -g
 CC		:=	gcc
 CFLAGS	:=	-Wall -Wextra -Werror -g # -fsanitize=address
 
-SRCDIR	:=	.
-OBJDIR	:=	.
-
 Colleen:	Colleen.s
 	$(ASM) $(ASFLAGS) $< -o $@.o
 	$(CC) $@.o -o $@
@@ -31,6 +28,28 @@ testGrace:	Grace
 	@echo
 	@echo =====================================================================
 	diff $^.s $^_kid.s
+
+Sully:		Sully.s
+	$(ASM) $(ASFLAGS) $< -o $@.o
+	$(CC) -g $@.o -o $@
+
+.PHONY: testSully
+testSully:	Sully
+	@echo [$^.s]
+	@echo =====================================================================
+	@cat $^.s
+	@echo
+	@echo =====================================================================
+	@echo [execute $^]
+	./$^
+	# @echo [listing $^ files]
+	# ls -ltr $^*
+	# @echo [$^.s and $^_5.s are identical?]
+	# diff $^.s $^_5.s
+	# @echo "-> ok."
+	# @echo [$^.s and $^_{4,3,2,1,0}.s are identical except only the line?]
+	# !(diff $^_5.s $^_4.s || diff $^_4.s $^_3.s || diff $^_3.s $^_2.s || diff $^_2.s $^_1.s || diff $^_1.s $^_0.s)
+	# @echo "-> ok."
 
 
 QUINE	:=	quine
