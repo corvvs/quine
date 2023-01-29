@@ -1,6 +1,10 @@
 CFLAGS	:= -Wall -Werror -Wextra
 CC		:= 	gcc
 
+all:	Colleen Grace Sully
+
+tall:	testColleen testGrace testSully
+
 Colleen:	Colleen.o
 	${CC} ${CFLAGS} $^ -o $@
 
@@ -20,30 +24,30 @@ Grace:		Grace.o
 testGrace:	Grace
 	./$^
 	@echo =====================================================================
-	@cat Grace.c
+	@cat $^.c
 	@echo
 	@echo =====================================================================
-	diff Grace.c Grace_kid.c
+	diff $^.c $^_kid.c
 
 Sully:		Sully.o
 	${CC} ${CFLAGS} $^ -o $@
 
 .PHONY: testSully
 testSully:	Sully
-	@echo [Sully.c]
+	@echo [$^.c]
 	@echo =====================================================================
-	@cat Sully.c
+	@cat $^.c
 	@echo
 	@echo =====================================================================
-	@echo [execute Sully]
+	@echo [execute $^]
 	./$^
-	@echo [listing Sully files]
-	ls -ltr Sully*
-	@echo [Sully.c and Sully_5.c are identical?]
-	diff Sully.c Sully_5.c
+	@echo [listing $^ files]
+	ls -ltr $^*
+	@echo [$^.c and $^_5.c are identical?]
+	diff $^.c $^_5.c
 	@echo "-> ok."
-	@echo [Sully.c and Sully_{4,3,2,1,0}.c are identical without only one line?]
-	!(diff Sully_5.c Sully_4.c || diff Sully_4.c Sully_3.c || diff Sully_3.c Sully_2.c || diff Sully_2.c Sully_1.c || diff Sully_1.c Sully_0.c)
+	@echo [$^.c and $^_{4,3,2,1,0}.c are identical except only the line?]
+	!(diff $^_5.c $^_4.c || diff $^_4.c $^_3.c || diff $^_3.c $^_2.c || diff $^_2.c $^_1.c || diff $^_1.c $^_0.c)
 	@echo "-> ok."
 
 .PHONY: wikipedia
@@ -54,4 +58,5 @@ wikipedia:
 
 .PHONY: clean
 clean:
+	rm -rf Grace Grace_kid.c
 	rm -rf Sully Sully_*
