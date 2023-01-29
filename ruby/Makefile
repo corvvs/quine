@@ -1,9 +1,13 @@
 RUBY		:=	ruby
 RUBYFLAGS	:=	
+NAMES		:=	Colleen Grace Sully
+TEST_NAMES	:=	$(addprefix test,$(NAMES))
 
-all:	Colleen Grace Sully
+.PHONY: all
+all:	$(NAMES)
 
-tall:	testColleen testGrace testSully
+.PHONY: tall
+tall:	$(TEST_NAMES)
 
 Colleen:	Colleen.rb
 
@@ -46,3 +50,11 @@ testSully:	Sully
 	@echo [$^.rb and $^_{4,3,2,1,0}.rb are identical except only the line?]
 	!(diff $^_5.rb $^_4.rb || diff $^_4.rb $^_3.rb || diff $^_3.rb $^_2.rb || diff $^_2.rb $^_1.rb || diff $^_1.rb $^_0.rb)
 	@echo "-> ok."
+
+.PHONY: clean
+clean:
+	rm -rf Grace_kid.rb
+	rm -rf Sully_*
+
+.PHONY: fclean
+fclean: clean

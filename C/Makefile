@@ -1,9 +1,14 @@
-CFLAGS	:= -Wall -Werror -Wextra
-CC		:= 	gcc
+CC			:= 	gcc
+CFLAGS		:= -Wall -Werror -Wextra
+NAMES		:=	Colleen Grace Sully
+TEST_NAMES	:=	$(addprefix test,$(NAMES))
+OBJS		:=	$(addsuffix .o,$(NAMES))
 
-all:	Colleen Grace Sully
+.PHONY: all
+all:	$(NAMES)
 
-tall:	testColleen testGrace testSully
+.PHONY: tall
+tall:	$(TEST_NAMES)
 
 Colleen:	Colleen.o
 	${CC} ${CFLAGS} $^ -o $@
@@ -50,13 +55,18 @@ testSully:	Sully
 	!(diff $^_5.c $^_4.c || diff $^_4.c $^_3.c || diff $^_3.c $^_2.c || diff $^_2.c $^_1.c || diff $^_1.c $^_0.c)
 	@echo "-> ok."
 
+.PHONY: clean
+clean:
+	rm -rf $(OBJS)
+	rm -rf Grace_kid.c
+	rm -rf Sully_*
+
+.PHONY: fclean
+fclean: clean
+	rm -rf $(NAMES)
+
 .PHONY: wikipedia
 wikipedia:
 	${CC} ${CFLAGS} $@.c -o $@
 	./$@
 	diff $@.c $@_kid.c
-
-.PHONY: clean
-clean:
-	rm -rf Grace Grace_kid.c
-	rm -rf Sully Sully_*

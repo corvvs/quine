@@ -1,11 +1,16 @@
-ASM		:=	nasm
-ASFLAGS	:=	-f macho64 -g
-CC		:=	gcc
-CFLAGS	:=	-Wall -Wextra -Werror -g # -fsanitize=address
+ASM			:=	nasm
+ASFLAGS		:=	-f macho64 -g
+CC			:=	gcc
+CFLAGS		:=	-Wall -Wextra -Werror -g # -fsanitize=address
+NAMES		:=	Colleen Grace Sully
+TEST_NAMES	:=	$(addprefix test,$(NAMES))
+OBJS		:=	$(addsuffix .o,$(NAMES))
 
-all:	Colleen Grace Sully
+.PHONY: all
+all:	$(NAMES)
 
-tall:	testColleen testGrace testSully
+.PHONY: tall
+tall:	$(TEST_NAMES)
 
 Colleen:	Colleen.s
 	$(ASM) $(ASFLAGS) $< -o $@.o
@@ -68,3 +73,13 @@ $(QUINE):
 q:
 	gcc -masm=intel q.s -o q
 	./q > c.s && cat c.s
+
+.PHONY: clean
+clean:
+	rm -rf $(OBJS)
+	rm -rf Grace_kid.s
+	rm -rf Sully_*
+
+.PHONY: fclean
+fclean: clean
+	rm -rf $(NAMES)
