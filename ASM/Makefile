@@ -60,6 +60,15 @@ testSully:	Sully
 	!(diff $^_5.s $^_4.s || diff $^_4.s $^_3.s || diff $^_3.s $^_2.s || diff $^_2.s $^_1.s || diff $^_1.s $^_0.s)
 	@echo "-> ok."
 
+.PHONY: clean
+clean:
+	rm -rf $(OBJS)
+	rm -rf Grace_kid.s
+	rm -rf Sully_*
+
+.PHONY: fclean
+fclean: clean
+	rm -rf $(NAMES)
 
 QUINE	:=	quine
 
@@ -74,12 +83,3 @@ q:
 	gcc -masm=intel q.s -o q
 	./q > c.s && cat c.s
 
-.PHONY: clean
-clean:
-	rm -rf $(OBJS)
-	rm -rf Grace_kid.s
-	rm -rf Sully_*
-
-.PHONY: fclean
-fclean: clean
-	rm -rf $(NAMES)
