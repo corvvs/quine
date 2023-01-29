@@ -1,6 +1,10 @@
 RUBY		:=	ruby
 RUBYFLAGS	:=	
 
+all:	Colleen Grace Sully
+
+tall:	testColleen testGrace testSully
+
 Colleen:	Colleen.rb
 
 .PHONY:			testColleen

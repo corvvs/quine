@@ -3,6 +3,10 @@ ASFLAGS	:=	-f macho64 -g
 CC		:=	gcc
 CFLAGS	:=	-Wall -Wextra -Werror -g # -fsanitize=address
 
+all:	Colleen Grace Sully
+
+tall:	testColleen testGrace testSully
+
 Colleen:	Colleen.s
 	$(ASM) $(ASFLAGS) $< -o $@.o
 	$(CC) $@.o -o $@
